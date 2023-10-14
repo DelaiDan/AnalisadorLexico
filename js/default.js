@@ -16,7 +16,7 @@ $("#tokenInsert").click(function(){
     let currentToken = input.val();
 
     insertToken(input, currentToken);
-})
+});
 
 //Valida Palavra
 $("#validateInput").on('input', function(){
@@ -24,6 +24,16 @@ $("#validateInput").on('input', function(){
     let currentToken = input.val();
 
     validate(input, currentToken);
+});
+
+//Remove Token
+$("#tokens").on('click', '.token', function(){
+    let input = $(this);
+    console.log(input);
+
+    if(removeToken(input)){
+        input.remove();
+    };
 })
 
 function insertToken(input, token){
@@ -34,7 +44,37 @@ function insertToken(input, token){
         }
         input.val('');
         alphabet = setAlphabet();
+
+        let tokenDisplay = '<div class="token">';
+            tokenDisplay += '<input type="hidden" value="'+ token +'"></input>';
+            tokenDisplay += '<span class="text">'+ token +'</span>';
+            tokenDisplay += '<span class="close">X</span>';
+        tokenDisplay += '</div>';
+
+        $('#tokens').append(tokenDisplay);
     }
+}
+
+function removeToken(token){
+    if(token){
+        let tokenArray = tokens.indexOf(token);
+
+        if(tokenArray < 0){
+            tokens.splice(token,1);
+
+            //Reseta Variaveis
+            states = [[]];
+            alphabet = [];
+            step = 0;
+
+            //Remonta alfabeto e Estados
+            setStates();
+            alphabet = setAlphabet();
+            return true;
+        }
+        return false;
+    }
+    return false;
 }
 
 function setStates(){
