@@ -7,15 +7,36 @@
     <title>Analisador Léxico</title>
 </head>
 <body>
-    <section id="main" class="content">
-        <div class="insert">
-            <input id="tokenInput" type="text" placeholder="Digite o Token">
-            <button id="tokenInsert">Inserir Palavra</button>
+    <header>
+        <div class="content">
+            <h1>Analisador Léxico</h1>
+            <p>por:</p>
+            <a href="https://github.com/DelaiDan/AnalisadorLexico">Arthur Delai</a>
         </div>
-        <div class="validate">
-            <input id="validateInput" type="text" placeholder="Digite a Palavra">
+    </header>
+    <section id="main" class="content">
+        <div class="top-forms">
+            <h3>Inserir Token</h3>
+            <div class="insert">
+                <input id="tokenInput" type="text" placeholder="Digite o Token">
+                <button id="tokenInsert" class="btn-default">Inserir Palavra</button>
+            </div>
+            <h4>Lista de Tokens</h4>
+            <div id="tokens"></div>
+        </div>
+        <div class="bottom-forms">
+            <div class="validate">
+                <h3>Validar Palavra</h3>
+                <input id="validateInput" type="text" placeholder="Digite a Palavra">
+            </div>
+            <div class="table-wrapper">
+                <table id="table"></table>
+            </div>
         </div>
     </section>
+    <footer>
+
+    </footer>
 </body>
 <script src="js/jquery-3.7.1.min.js"></script>
 <script src="js/default.js"></script>
