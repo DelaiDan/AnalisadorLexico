@@ -89,6 +89,10 @@ header .content *{
     width: 50%;
 }
 
+.bottom-forms{
+    width: calc(100% - 40px);
+}
+
 .top-forms h3, .top-forms h4, .bottom-forms h3{
     text-align: center;
     font-weight: 700;
@@ -143,22 +147,88 @@ header .content *{
 
 .bottom-forms{
     display: flex;
-    align-items: baseline;
+    position: relative;
+    height: 500px;
+    overflow-y: scroll;
 }
 
-.bottom-forms .validate{
-    width: 20%;
+.bottom-forms .validate-wrapper{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 15px;
+    width: 15%;
     padding-right: 2%;
-    border-right: 1px solid #b0b0b0;
+}
+
+.bottom-forms .validate-wrapper .validate{
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .bottom-forms .table-wrapper{
-    width: 75%;
+    width: 80%;
+    height: fit-content;
+    padding-left: 2%;
+    border-left: 1px solid #b0b0b0;
 }
 
 .bottom-forms .validate input[type=text]{
     width: calc(100% - 30px);
     margin: 25px 0;
+}
+
+#table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#table th{
+    border-bottom: 1px solid black;
+    font-weight: 500;
+}
+
+#table tr.green{
+    background-color: greenyellow;
+}
+
+#table tr.red{
+    background-color: red;
+}
+
+#table tr.current_step{
+    border: 2px solid #0046a8;
+}
+
+#table tr.end.green{
+    background-color: #00d62b;
+}
+
+#table tr.end.green td{
+    color: #FFF;
+    font-weight: 900;
+}
+
+#table tr td{
+    text-align: center;
+    padding: 10px 0;
+}
+
+#table tr th:first-child{
+    border-right: 1px solid black;
+    font-weight: 700;
+}
+
+#table tr td:first-child{
+    width: 10%;
+    border-right: 1px solid black;
+    font-weight: 700;
+}
+
+#table tr td.empty{
+    font-size: 12px;
+}
+
+#table tr td.step{
+    font-weight: 700;
 }
