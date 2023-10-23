@@ -7,7 +7,9 @@ const firstLetter = 'a';
 const lastLetter = 'z';
 
 $(document).ready(() => {
-
+    if(tokens.length <= 0){
+        $("#validateInput").prop('disabled', true);
+    }
 });
 
 //Adiciona Token no Array
@@ -16,9 +18,25 @@ $("#tokenInsert").click(function(){
     let currentToken = input.val();
 
     if(tokens.indexOf(currentToken) < 0){
-        insertToken(input, currentToken);
+        if(insertToken(input, currentToken)){
+            $("#validateInput").prop('disabled', false);
+        };
     }
     input.val('');
+});
+
+$("#tokenInput").on('keyup', function(e){
+    if(e.keyCode == 32){
+        let input = $(this);
+        let currentToken = input.val();
+    
+        if(tokens.indexOf(currentToken) < 0){
+            if(insertToken(input, currentToken)){
+                $("#validateInput").prop('disabled', false);
+            };
+        }
+        input.val('');
+    }
 });
 
 //Valida Palavra
@@ -37,10 +55,15 @@ $("#tokens").on('click', '.token', function(){
     if(removeToken(token)){
         input.remove();
     };
+
+    if(tokens.length <= 0){
+        $("#validateInput").prop('disabled', true);
+    }
 })
 
 function insertToken(input, token){
-    if(token){
+    token = token.trim();
+    if(token.length > 0){
         if(tokens.indexOf(token) < 0){
             tokens.push(token);
             setStates();
@@ -55,6 +78,8 @@ function insertToken(input, token){
         tokenDisplay += '</div>';
 
         $('#tokens').append(tokenDisplay);
+
+        return true;
     }
 }
 
@@ -160,8 +185,7 @@ function validate(input, validate, last){
                 
                 if(!error){
                     //Se está dentro do alfabeto
-                    if(validate[i].charCodeAt(0) >= firstLetter.charCodeAt(0) && validate[i].charCodeAt(0) <= lastLetter.charCodeAt(0)){
-
+                    if(letra.charCodeAt(0) >= firstLetter.charCodeAt(0) && letra.charCodeAt(0) <= lastLetter.charCodeAt(0)){
                         if(alphabet[currentStep][letra] != '-'){
                             $("#table tr").removeClass('current_step');
                             $(`.step_${currentStep}`).addClass('green');
@@ -171,15 +195,20 @@ function validate(input, validate, last){
                             error = true;
                             $(`.step_${currentStep}`).addClass('red');
                         }
+                    }
 
-                        //Se for o ultimo, pressionando Espaço
-                        if(last == 32){
+                    //Se for o ultimo, pressionando Espaço
+                    if(last == 32){
+                        if(i == validate.length-1){
                             if(alphabet[currentStep]['end']){
                                 $("#table tr").removeClass('current_step');
                                 $(`.step_${currentStep}`).addClass('green');
                                 $(`.step_${currentStep}`).addClass('current_step');
-                                input.val('');
+                            } else {
+                                error = true;
+                                $(`.step_${currentStep}`).addClass('red');
                             }
+                            input.val('');
                         }
                     }
                 }
