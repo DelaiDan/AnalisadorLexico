@@ -64,22 +64,24 @@ $("#tokens").on('click', '.token', function(){
 function insertToken(input, token){
     token = token.trim();
     if(token.length > 0){
-        if(tokens.indexOf(token) < 0){
-            tokens.push(token);
-            setStates();
+        if(onlyLettersAndSpaces(token)){
+            if(tokens.indexOf(token) < 0){
+                tokens.push(token);
+                setStates();
+            }
+            alphabet = setAlphabet();
+            createTable(alphabet);
+    
+            let tokenDisplay = '<div class="token">';
+                tokenDisplay += '<input type="hidden" value="'+ token +'"></input>';
+                tokenDisplay += '<span class="text">'+ token +'</span>';
+                tokenDisplay += '<span class="close">X</span>';
+            tokenDisplay += '</div>';
+    
+            $('#tokens').append(tokenDisplay);
+    
+            return true;
         }
-        alphabet = setAlphabet();
-        createTable(alphabet);
-
-        let tokenDisplay = '<div class="token">';
-            tokenDisplay += '<input type="hidden" value="'+ token +'"></input>';
-            tokenDisplay += '<span class="text">'+ token +'</span>';
-            tokenDisplay += '<span class="close">X</span>';
-        tokenDisplay += '</div>';
-
-        $('#tokens').append(tokenDisplay);
-
-        return true;
     }
 }
 
@@ -270,4 +272,8 @@ function createTable(alphabet){
 
         table.append(row);
     }
+}
+
+function onlyLettersAndSpaces(str) {
+  return /^[A-Za-z\s]*$/.test(str);
 }
